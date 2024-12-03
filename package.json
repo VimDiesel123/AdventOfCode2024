@@ -5,7 +5,8 @@
   "scripts": {
     "test": "jest",
     "watch": "jest --watch",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "start": "tsx scripts/solutions.ts"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +24,8 @@
     "jest": "^29.7.0",
     "prettier": "^3.4.1",
     "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.16.0"
   }
