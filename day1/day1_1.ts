@@ -14,12 +14,11 @@ const parseInput = (input: string): [number[], number[]] => {
   return result;
 };
 
-const totalDistance = ([left, right]: [number[], number[]]): number => {
+const solve = ([left, right]: [number[], number[]]): number => {
   return zip(left.sort(), right.sort()).reduce(
     (acc, [left, right]) => acc + Math.abs(left - right),
     0,
   );
 };
 
-export default totalDistance;
-export { parseInput };
+export { solve, parseInput };

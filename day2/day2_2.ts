@@ -1,6 +1,6 @@
 import { safeReport } from './day2_1';
 
-const safeReports = (reports: number[][]): number => {
+const solve = (reports: number[][]): number => {
   return reports.filter((report) => possibleReports(report).some(safeReport))
     .length;
 };
@@ -13,4 +13,4 @@ const possibleReports = (report: number[]): number[][] => {
   return result;
 };
 
-export { safeReports };
+export { solve };
