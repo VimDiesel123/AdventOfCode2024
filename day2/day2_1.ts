@@ -9,11 +9,7 @@ const parseInput = (input: string): number[][] => {
 };
 
 const safeReports = (reports: number[][]): number => {
-  const safe = reports.filter(
-    (report) =>
-      safeDifference(report) && (increasing(report) || decreasing(report)),
-  );
-  return safe.length;
+  return reports.filter(safeReport).length;
 };
 
 const safeDifference = (report: number[]): boolean => {
@@ -23,4 +19,8 @@ const safeDifference = (report: number[]): boolean => {
   );
 };
 
-export { parseInput, safeReports };
+const safeReport = (report: number[]): boolean => {
+  return safeDifference(report) && (increasing(report) || decreasing(report));
+};
+
+export { parseInput, safeReports, safeReport };
