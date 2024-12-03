@@ -1,10 +1,11 @@
 import { parseInput, safeReports } from './day2_1';
-import { readInput } from '../common';
+import { readAndParseTestInput, readInput, setDay } from '../common';
 import path from 'path';
 
+setDay(2);
+
 test('Should be 2 safe reports for test input', async () => {
-  const input = await readInput(path.join(__dirname, 'test_input.txt'));
-  const reports = parseInput(input);
+  const reports = await readAndParseTestInput(parseInput);
   expect(safeReports(reports)).toBe(2);
 });
 

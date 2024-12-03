@@ -1,4 +1,17 @@
 import fs from 'fs/promises';
+import path from 'path';
+
+let DAY = 1;
+
+const setDay = (newDay: number) => (DAY = newDay);
+
+const readAndParseTestInput = async <T>(parser: (input: string) => T) => {
+  const input = await readInput(
+    path.join(__dirname, `day${DAY}/test_input.txt`),
+  );
+  const parsedInput = parser(input);
+  return parsedInput;
+};
 
 const readInput = async (path: string) => {
   return await fs.readFile(path, 'utf-8');
@@ -29,4 +42,13 @@ const decreasing = (nums: number[]): boolean => {
   return zipTail(nums).every(([first, second]) => first > second);
 };
 
-export { inputAsLines, readInput, zip, zipTail, increasing, decreasing };
+export {
+  inputAsLines,
+  readInput,
+  zip,
+  zipTail,
+  increasing,
+  decreasing,
+  readAndParseTestInput,
+  setDay,
+};
