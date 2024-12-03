@@ -16,7 +16,7 @@ const parseInput = (input: string): [number[], number[]] => {
   return result;
 };
 
-const totalDistance = (left: number[], right: number[]): number => {
+const totalDistance = ([left, right]: [number[], number[]]): number => {
   return zip(left.sort(), right.sort()).reduce(
     (acc, [left, right]) => acc + Math.abs(left - right),
     0,
@@ -28,8 +28,7 @@ export { parseInput };
 
 const solve = async () => {
   const input = await fs.readFile(path.join(__dirname, 'input.txt'), 'utf-8');
-  const [left, right] = parseInput(input);
-  console.log(totalDistance(left, right));
+  console.log(totalDistance(parseInput(input)));
 };
 
 solve();

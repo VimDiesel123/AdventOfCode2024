@@ -1,4 +1,4 @@
-import { readAndParseTestInput, readInput, setDay } from '../common';
+import { readInput, setDay, withTestInput } from '../common';
 import path from 'path';
 import { parseInput } from './day2_1';
 import { safeReports } from './day2_2';
@@ -6,8 +6,7 @@ import { safeReports } from './day2_2';
 setDay(2);
 
 test('Safe reports for test input should be 4', async () => {
-  const reports = await readAndParseTestInput(parseInput);
-  expect(safeReports(reports)).toBe(4);
+  expect(await withTestInput(safeReports, parseInput)).toBe(4);
 });
 
 test('Solve day 2 part 2', async () => {

@@ -13,6 +13,13 @@ const readAndParseTestInput = async <T>(parser: (input: string) => T) => {
   return parsedInput;
 };
 
+const withTestInput = async <T>(
+  solver: (args: T) => number,
+  parser: (input: string) => T,
+): Promise<number> => {
+  return solver(await readAndParseTestInput(parser));
+};
+
 const readInput = async (path: string) => {
   return await fs.readFile(path, 'utf-8');
 };
@@ -51,4 +58,5 @@ export {
   decreasing,
   readAndParseTestInput,
   setDay,
+  withTestInput,
 };
