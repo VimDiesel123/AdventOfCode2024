@@ -20,6 +20,19 @@ const withTestInput = async <T>(
   return solver(await readAndParseTestInput(parser));
 };
 
+const readAndParseRealInput = async <T>(parser: (input: string) => T) => {
+  const input = await readInput(path.join(__dirname, `day${DAY}/input.txt`));
+  const parsedInput = parser(input);
+  return parsedInput;
+};
+
+const withRealInput = async <T>(
+  solver: (args: T) => number,
+  parser: (input: string) => T,
+): Promise<number> => {
+  return solver(await readAndParseRealInput(parser));
+};
+
 const readInput = async (path: string) => {
   return await fs.readFile(path, 'utf-8');
 };
@@ -59,4 +72,5 @@ export {
   readAndParseTestInput,
   setDay,
   withTestInput,
+  withRealInput,
 };

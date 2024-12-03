@@ -1,5 +1,3 @@
-import path from 'path';
-import fs from 'fs/promises';
 import { zip } from '../common';
 
 const parseInput = (input: string): [number[], number[]] => {
@@ -25,10 +23,3 @@ const totalDistance = ([left, right]: [number[], number[]]): number => {
 
 export default totalDistance;
 export { parseInput };
-
-const solve = async () => {
-  const input = await fs.readFile(path.join(__dirname, 'input.txt'), 'utf-8');
-  console.log(totalDistance(parseInput(input)));
-};
-
-solve();
