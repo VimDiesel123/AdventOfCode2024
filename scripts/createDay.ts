@@ -75,14 +75,16 @@ fs.writeFile(path.join(dayDir, `day${day}_2.ts`), createPart(), (error) => {
 
 console.info('Part 2 created!');
 
-const createTestPart = (part: number) => `import { solve } from './day${day}_1';
+const createTestPart = (
+  part: number,
+) => `import { solve } from './day${day}_${part}';
 import { parseInput } from './day${day}';
 import { setDay, withTestInput } from '../common';
 
-setDay(1);
+setDay(${day});
 
 test('Test answer for Day ${day} part ${part}', async () => {
-  expect(await withTestInput(solve, parseInput)).toBe(/*TODO: Fill me in!*/);
+  expect(await withTestInput(solve, parseInput)).toBe(0 /*TODO: Fill me in!*/);
 });`;
 
 console.info(`Creating test for the day: ${day} part 1...`);
