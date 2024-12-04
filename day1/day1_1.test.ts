@@ -1,4 +1,5 @@
-import { solve, parseInput } from './day1_1';
+import { solve } from './day1_1';
+import { parseInput } from './day1';
 import { setDay, withTestInput } from '../common';
 
 setDay(1);
