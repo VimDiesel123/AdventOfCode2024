@@ -1,30 +1,26 @@
 const solve = (input: string): number => {
   const puzzle = input.split('\r\n').map((line) => line.split(''));
-  for (let row = 0; row < puzzle.length; ++row) {
-    for (let col = 0; col < puzzle[0].length; ++col) {
-      console.log('LETTER = ', puzzle[row][col]);
-      console.log(
-        'NEXT LETTER LOCATION: ',
-        nextLetterLocation(puzzle[row][col], [row, col], puzzle),
-      );
-    }
-  }
+  const result = 0;
   return 0;
 };
 
-const nextLetterLocation = (
-  currentLetter: string,
-  coord: [number, number],
+const possibleWords = (
+  [startX, startY]: Coord,
   puzzle: string[][],
-): number => {
-  const target = nextLetter(currentLetter);
-  possibleCoords(coord).forEach(([x, y]) => {
-    if (inBounds([x, y], puzzle) && puzzle[x][y] === target) return coord;
-  });
-  return -1;
+): string[][] => {
+  const words = [];
+  for (const dir of directions) {
+    const { offset } = dir;
+    const word = [];
+    for (let i = 0; i < puzzle.length; ++i) {
+      word.push(puzzle[startX + offset[0] * i][startY + offset[1] * i]);
+    }
+    words.push(word);
+  }
+  return words;
 };
 
-const inBounds = ([x, y]: [number, number], puzzle: string[][]) => {
+const inBounds = ([x, y]: Coord, puzzle: string[][]) => {
   return x < puzzle.length && x >= 0 && y >= 0 && y < puzzle[0].length;
 };
 
@@ -35,17 +31,22 @@ const nextLetter = (currentLetter: string) => {
   else throw new Error('OOPS');
 };
 
-const possibleCoords = ([x, y]: [number, number]): [number, number][] => {
-  return [
-    [x + 1, y],
-    [x + 1, y + 1],
-    [x + 1, y - 1],
-    [x - 1, y],
-    [x - 1, y + 1],
-    [x - 1, y - 1],
-    [x, y + 1],
-    [x, y - 1],
-  ];
-};
+interface Direction {
+  name: string;
+  offset: [number, number];
+}
+
+type Coord = [number, number];
+
+const directions: Direction[] = [
+  { name: 'up', offset: [-1, 0] },
+  { name: 'down', offset: [1, 0] },
+  { name: 'left', offset: [0, -1] },
+  { name: 'right', offset: [0, 1] },
+  { name: 'down-left', offset: [1, -1] },
+  { name: 'down-right', offset: [1, 1] },
+  { name: 'up-left', offset: [-1, -1] },
+  { name: 'up-right', offset: [-1, 1] },
+];
 
 export { solve };
