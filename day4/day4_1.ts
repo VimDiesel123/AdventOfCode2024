@@ -1,19 +1,40 @@
 const solve = (input: string): number => {
   const puzzle = input.split('\r\n').map((line) => line.split(''));
-  const result = 0;
-  return 0;
+  const results = [];
+  for (let row = 0; row < puzzle.length; ++row) {
+    for (let col = 0; col < puzzle[row].length; ++col) {
+      const letter = puzzle[row][col];
+      if (letter !== 'X') continue;
+      const words = possibleWords([row, col], puzzle);
+      console.log({ coord: [row, col], words });
+      if (
+        words.find(
+          (word) =>
+            word.has('X') && word.has('M') && word.has('A') && word.has('S'),
+        )
+      ) {
+        results.push([row, col]);
+      }
+    }
+  }
+  console.log(results);
+  return results.length;
 };
 
 const possibleWords = (
   [startX, startY]: Coord,
   puzzle: string[][],
-): string[][] => {
+): Set<string>[] => {
   const words = [];
   for (const dir of directions) {
     const { offset } = dir;
-    const word = [];
-    for (let i = 0; i < puzzle.length; ++i) {
-      word.push(puzzle[startX + offset[0] * i][startY + offset[1] * i]);
+    const word: Set<string> = new Set();
+    for (let i = 0; i < 4; ++i) {
+      const newCoord: Coord = [startX + offset[0] * i, startY + offset[1] * i];
+      if (!inBounds(newCoord, puzzle)) {
+        break;
+      }
+      word.add(puzzle[startX + offset[0] * i][startY + offset[1] * i]);
     }
     words.push(word);
   }
