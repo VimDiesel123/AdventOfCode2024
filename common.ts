@@ -41,6 +41,12 @@ const withRealInput = async <T>(
   return solver(await readAndParseRealInput(parser));
 };
 
+const withRealInput2 = async (
+  solver: (input: string) => number,
+): Promise<number> => {
+  return solver(await readInput(path.join(__dirname, `day${DAY}/input.txt`)));
+};
+
 const readInput = async (path: string) => {
   return await fs.readFile(path, 'utf-8');
 };
@@ -82,4 +88,5 @@ export {
   withTestInput,
   withRealInput,
   withTestInput2,
+  withRealInput2
 };
