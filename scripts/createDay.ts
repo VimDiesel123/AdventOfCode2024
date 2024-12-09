@@ -16,19 +16,14 @@ const createDay = () => {
   
   setDay(${day});
 
-  const parseInput = (input: string) /*TODO: add return type*/ => {
-  /*TODO: Implement me!*/
-  };
-  
-  withRealInput(solver1, parseInput).then((result) =>
+  withRealInput(solver1).then((result) =>
     console.log('Solution for day ${day} part 1: ', result),
   );
   
-  withRealInput(solver2, parseInput).then((result) =>
+  withRealInput(solver2).then((result) =>
     console.log('Solution for day ${day} part 2: ', result),
   );
 
-  export { parseInput }
   `;
 };
 
@@ -51,7 +46,7 @@ fs.writeFile(path.join(dayDir, `day${day}.ts`), createDay(), (error) => {
 console.info('Main script created!');
 
 const createPart = () =>
-  `const solve = (/*TODO: add input args*/): number => {
+  `const solve = (input: string): number => {
   //TODO: implement ME!
   return 0;
 };
@@ -78,13 +73,12 @@ console.info('Part 2 created!');
 const createTestPart = (
   part: number,
 ) => `import { solve } from './day${day}_${part}';
-import { parseInput } from './day${day}';
 import { setDay, withTestInput } from '../common';
 
 setDay(${day});
 
 test('Test answer for Day ${day} part ${part}', async () => {
-  expect(await withTestInput(solve, parseInput)).toBe(0 /*TODO: Fill me in!*/);
+  expect(await withTestInput(solve)).toBe(0 /*TODO: Fill me in!*/);
 });`;
 
 console.info(`Creating test for the day: ${day} part 1...`);

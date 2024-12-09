@@ -5,22 +5,7 @@ let DAY = 1;
 
 const setDay = (newDay: number) => (DAY = newDay);
 
-const readAndParseTestInput = async <T>(parser: (input: string) => T) => {
-  const input = await readInput(
-    path.join(__dirname, `day${DAY}/test_input.txt`),
-  );
-  const parsedInput = parser(input);
-  return parsedInput;
-};
-
-const withTestInput = async <T>(
-  solver: (args: T) => number,
-  parser: (input: string) => T,
-): Promise<number> => {
-  return solver(await readAndParseTestInput(parser));
-};
-
-const withTestInput2 = async (
+const withTestInput = async (
   solver: (input: string) => number,
 ): Promise<number> => {
   return solver(
@@ -28,20 +13,7 @@ const withTestInput2 = async (
   );
 };
 
-const readAndParseRealInput = async <T>(parser: (input: string) => T) => {
-  const input = await readInput(path.join(__dirname, `day${DAY}/input.txt`));
-  const parsedInput = parser(input);
-  return parsedInput;
-};
-
-const withRealInput = async <T>(
-  solver: (args: T) => number,
-  parser: (input: string) => T,
-): Promise<number> => {
-  return solver(await readAndParseRealInput(parser));
-};
-
-const withRealInput2 = async (
+const withRealInput = async (
   solver: (input: string) => number,
 ): Promise<number> => {
   return solver(await readInput(path.join(__dirname, `day${DAY}/input.txt`)));
@@ -83,10 +55,7 @@ export {
   zipTail,
   increasing,
   decreasing,
-  readAndParseTestInput,
   setDay,
   withTestInput,
   withRealInput,
-  withTestInput2,
-  withRealInput2
 };

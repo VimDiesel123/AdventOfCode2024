@@ -1,6 +1,8 @@
 import { safeReport } from './day2_1';
+import { parseInput } from './day2_1';
 
-const solve = (reports: number[][]): number => {
+const solve = (input: string): number => {
+  const reports = parseInput(input);
   return reports.filter((report) => possibleReports(report).some(safeReport))
     .length;
 };

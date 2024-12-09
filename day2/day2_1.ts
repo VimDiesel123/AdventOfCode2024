@@ -1,6 +1,15 @@
 import { decreasing, increasing, zipTail } from '../common';
 
-const solve = (reports: number[][]): number => {
+const parseInput = (input: string): number[][] => {
+  const lines = input.split('\r\n');
+  const reports = lines.map((line) =>
+    line.split(' ').map((num) => Number(num)),
+  );
+  return reports;
+};
+
+const solve = (input: string): number => {
+  const reports = parseInput(input);
   return reports.filter(safeReport).length;
 };
 
@@ -15,4 +24,4 @@ const safeReport = (report: number[]): boolean => {
   return safeDifference(report) && (increasing(report) || decreasing(report));
 };
 
-export { solve, safeReport };
+export { solve, safeReport, parseInput };
