@@ -48,6 +48,14 @@ const decreasing = (nums: number[]): boolean => {
   return zipTail(nums).every(([first, second]) => first > second);
 };
 
+const inBounds = <T>([x, y]: Coord, puzzle: T[][]) => {
+  return x < puzzle.length && x >= 0 && y >= 0 && y < puzzle[0].length;
+};
+
+type Coord = [number, number];
+
+type Grid = string[][];
+
 export {
   inputAsLines,
   readInput,
@@ -58,4 +66,7 @@ export {
   setDay,
   withTestInput,
   withRealInput,
+  Coord,
+  Grid,
+  inBounds,
 };
