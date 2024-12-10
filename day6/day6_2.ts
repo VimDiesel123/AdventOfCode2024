@@ -23,33 +23,15 @@ const solve = (input: string): number => {
     states.push(currentState);
     currentState = move(grid, currentState);
   }
-  const loopers = states.filter((state) => introducesLoop(grid, state, states));
-  console.log(
-    loopers.map((loop) => [loop.currentDirection, loop.currentPosition]),
-  );
 
   return -1;
 };
 
-const introducesLoop = (grid: Grid, state: State, states: State[]): boolean => {
-  const nextMove = move(grid, state);
-
-  const afterChangeDirection: State = {
-    ...state,
-    currentDirection: nextDirection(state.currentDirection),
-  };
-
-  const matchingState = states.find((state) =>
-    samePositionAndDirection(state, afterChangeDirection),
-  );
-
-  return matchingState !== undefined;
-};
-
 const samePositionAndDirection = (state1: State, state2: State): boolean => {
   return (
-    state1.currentDirection == state2.currentDirection &&
-    state1.currentPosition == state2.currentPosition
+    state1.currentDirection === state2.currentDirection &&
+    state1.currentPosition[0] === state2.currentPosition[0] &&
+    state1.currentPosition[1] === state2.currentPosition[1]
   );
 };
 
