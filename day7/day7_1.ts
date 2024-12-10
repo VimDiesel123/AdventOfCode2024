@@ -48,4 +48,4 @@ const parseEquations = (input: string): Equation[] => {
   return equations;
 };
 
-export { solve };
+export { solve, parseEquations };
