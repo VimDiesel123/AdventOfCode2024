@@ -24,12 +24,6 @@ const solve = (input: string): number => {
     currentState = move(grid, currentState);
   }
 
-  const loopers = states.filter((state) => canCreateLoop(grid, state, states));
-
-  console.log(
-    loopers.map((looper) => [looper.currentDirection, looper.currentPosition]),
-  );
-
   return -1;
 };
 

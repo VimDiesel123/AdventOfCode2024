@@ -52,6 +52,10 @@ const inBounds = <T>([x, y]: Coord, puzzle: T[][]) => {
   return x < puzzle.length && x >= 0 && y >= 0 && y < puzzle[0].length;
 };
 
+const asGrid = (input: string): Grid => {
+  return input.split('\r\n').map((line) => line.split(''));
+};
+
 type Coord = [number, number];
 
 type Grid = string[][];
@@ -69,4 +73,5 @@ export {
   Coord,
   Grid,
   inBounds,
+  asGrid,
 };
