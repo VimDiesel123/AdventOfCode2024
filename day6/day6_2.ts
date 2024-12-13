@@ -24,8 +24,50 @@ const solve = (input: string): number => {
     currentState = move(grid, currentState);
   }
 
+  const loopers = states.filter((state) => canCreateLoop(grid, state, states));
+
+  console.log(
+    loopers.map((looper) => [looper.currentDirection, looper.currentPosition]),
+  );
+
   return -1;
 };
+
+const canCreateLoop = (grid: Grid, state: State, states: State[]): boolean => {
+  const forcedChangeInDirection = changeDirection(state);
+  const nextMove = states[states.indexOf(state) + 1];
+  if (nextMove && samePositionAndDirection(forcedChangeInDirection, nextMove))
+    return false;
+
+  return eventuallyLoops(grid, forcedChangeInDirection, states);
+};
+
+const alreadyContainsState = (needle: State, states: State[]): boolean => {
+  return (
+    states.find((state) => samePositionAndDirection(needle, state)) !==
+    undefined
+  );
+};
+
+const eventuallyLoops = (
+  grid: Grid,
+  state: State,
+  states: State[],
+): boolean => {
+  let start = state;
+  start.done = false;
+  while (!start.done) {
+    console.log(start);
+    if (alreadyContainsState(start, states)) return true;
+    start = move(grid, state);
+  }
+  return false;
+};
+
+const changeDirection = (state: State): State => ({
+  ...state,
+  currentDirection: nextDirection(state.currentDirection),
+});
 
 const samePositionAndDirection = (state1: State, state2: State): boolean => {
   return (
