@@ -1,4 +1,4 @@
-import { asGrid, Coord, Grid } from '../common';
+import { asGrid, Coord, Grid, markedGrid, toCoords } from '../common';
 
 interface Antenna {
   coord: Coord;
@@ -10,21 +10,12 @@ type Path = [number, number];
 const solve = (input: string): number => {
   const grid = asGrid(input);
   const antennas = getAntennas(grid);
-  let result = 0;
-  let outputGrid = '';
-  for (let row = 0; row < grid.length; ++row) {
-    for (let col = 0; col < grid[row].length; ++col) {
-      if (twoAntennasInLine([row, col], antennas)) {
-        result += 1;
-        outputGrid += '#';
-      } else {
-        outputGrid += grid[row][col];
-      }
-    }
-    outputGrid += '\n';
-  }
-  console.log(outputGrid);
-  return result;
+  const antinodes = toCoords(grid).filter((coord) =>
+    twoAntennasInLine(coord, antennas),
+  );
+
+  //console.log(markedGrid(grid, antinodes, '#'));
+  return antinodes.length;
 };
 
 const getAntennas = (grid: Grid): Antenna[] => {
@@ -54,10 +45,6 @@ const twiceAsFar = (a: Path, b: Path): boolean => {
   return a[0] * 2 === b[0] && a[1] * 2 === b[1];
 };
 
-const zeroDistance = (a: Path, b: Path): boolean => {
-  return a[0] === b[0] && a[1] === b[1];
-};
-
 const twoAntennasInLine = (
   coord: Coord,
   antennas: Antenna[],
@@ -66,11 +53,8 @@ const twoAntennasInLine = (
 
   for (const [antenna1, path1] of paths) {
     for (const [antenna2, path2] of paths) {
-      if (
-        !zeroDistance(path1, path2) &&
-        twiceAsFar(path1, path2) &&
-        sameFrequency(antenna1, antenna2)
-      )
+      if (antenna1 === antenna2) continue;
+      if (twiceAsFar(path1, path2) && sameFrequency(antenna1, antenna2))
         return [antenna1, antenna2];
     }
   }
@@ -79,8 +63,5 @@ const twoAntennasInLine = (
 
 const sameFrequency = (a: Antenna, b: Antenna): boolean =>
   a.frequency === b.frequency;
-
-const distance = (a: Coord, b: Coord): number =>
-  Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
 
 export { solve };

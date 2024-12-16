@@ -60,6 +60,25 @@ type Coord = [number, number];
 
 type Grid = string[][];
 
+const markedGrid = (grid: Grid, coords: Coord[], symbol: string): string => {
+  let result = '';
+  for (let row = 0; row < grid.length; ++row) {
+    for (let col = 0; col < grid[row].length; ++col) {
+      if (coords.some(([x, y]) => row === x && col === y)) result += symbol;
+      else {
+        result += grid[row][col];
+      }
+    }
+    result += '\n';
+  }
+  return result;
+};
+
+const toCoords = (grid: Grid): Coord[] =>
+  grid.flatMap((row, rowIndex) =>
+    row.map((_, colIndex): Coord => [rowIndex, colIndex]),
+  );
+
 export {
   inputAsLines,
   readInput,
@@ -74,4 +93,6 @@ export {
   Grid,
   inBounds,
   asGrid,
+  markedGrid,
+  toCoords,
 };
