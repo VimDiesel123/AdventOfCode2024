@@ -64,4 +64,4 @@ const twoAntennasInLine = (
 const sameFrequency = (a: Antenna, b: Antenna): boolean =>
   a.frequency === b.frequency;
 
-export { solve };
+export { solve, getAntennas, Antenna, Path, sameFrequency };
