@@ -79,6 +79,23 @@ const toCoords = (grid: Grid): Coord[] =>
     row.map((_, colIndex): Coord => [rowIndex, colIndex]),
   );
 
+const swap = <T>(arr: T[], a: number, b: number) => {
+  const temp = arr[a];
+  arr[a] = arr[b];
+  arr[b] = temp;
+};
+
+const chunk = <T>(arr: T[], chunkSize: number): T[][] => {
+  return arr.reduce((acc: T[][], cur, index, _) => {
+    const chunkIndex = Math.floor(index / chunkSize);
+    if (!acc[chunkIndex]) {
+      acc[chunkIndex] = [];
+    }
+    acc[chunkIndex].push(cur);
+    return acc;
+  }, []);
+};
+
 export {
   inputAsLines,
   readInput,
@@ -95,4 +112,6 @@ export {
   asGrid,
   markedGrid,
   toCoords,
+  swap,
+  chunk,
 };
