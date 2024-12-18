@@ -25,4 +25,4 @@ const splitDigits = (num: number): [number, number] => {
 
 const evenDigits = (num: number): boolean => num.toString().length % 2 === 0;
 
-export { solve };
+export { solve, splitDigits, evenDigits };
