@@ -1,5 +1,6 @@
 import { swap, chunk } from '../common';
-type fileID = number | '.';
+
+type FileID = number | '.';
 
 interface FileDescription {
   id: number;
@@ -11,14 +12,16 @@ const solve = (input: string): number => {
   const files = asFiles(input);
   const blocks = asBlocks(files);
   compact(blocks);
-  const result = blocks.reduce<number>(
+  return checkSum(blocks);
+};
+
+const checkSum = (blocks: FileID[]): number =>
+  blocks.reduce<number>(
     (acc, cur, index) => (cur === '.' ? acc : acc + cur * index),
     0,
   );
-  return result;
-};
 
-const compact = (blocks: fileID[]) => {
+const compact = (blocks: FileID[]) => {
   let start = 0;
   let end = blocks.length - 1;
   while (start < end) {
@@ -31,7 +34,7 @@ const compact = (blocks: fileID[]) => {
   }
 };
 
-const asBlocks = (files: FileDescription[]): fileID[] => {
+const asBlocks = (files: FileDescription[]): FileID[] => {
   return files.flatMap(({ id, blocks, freeSpace }) =>
     Array(blocks).fill(id).concat(Array(freeSpace).fill('.')),
   );
@@ -55,4 +58,4 @@ const toFileDescription = (
   freeSpace,
 });
 
-export { solve };
+export { solve, FileDescription, FileID, asBlocks, asFiles, checkSum };
