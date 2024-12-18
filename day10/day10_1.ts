@@ -46,4 +46,4 @@ const uniqueCoords = (coords: Coord[]): Coord[] => {
   }, []);
 };
 
-export { solve };
+export { solve, cardinalSquares };
