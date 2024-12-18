@@ -74,7 +74,7 @@ const markedGrid = (grid: Grid, coords: Coord[], symbol: string): string => {
   return result;
 };
 
-const toCoords = (grid: Grid): Coord[] =>
+const toCoords = <T>(grid: T[][]): Coord[] =>
   grid.flatMap((row, rowIndex) =>
     row.map((_, colIndex): Coord => [rowIndex, colIndex]),
   );
