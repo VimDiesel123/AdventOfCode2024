@@ -24,16 +24,27 @@ const solve = (input: string): number => {
     currentState = move(grid, currentState);
   }
 
-  return -1;
+  const loopers = states.filter((state, index) =>
+    canCreateLoop(grid, state, index, states),
+  );
+
+  return loopers.length;
 };
 
-const canCreateLoop = (grid: Grid, state: State, states: State[]): boolean => {
+const canCreateLoop = (
+  grid: Grid,
+  state: State,
+  index: number,
+  states: State[],
+): boolean => {
   const forcedChangeInDirection = changeDirection(state);
-  const nextMove = states[states.indexOf(state) + 1];
+  const nextMove = states[index + 1];
   if (nextMove && samePositionAndDirection(forcedChangeInDirection, nextMove))
     return false;
 
-  return eventuallyLoops(grid, forcedChangeInDirection, states);
+  const prev = states.slice(0, index);
+  prev.push(forcedChangeInDirection);
+  return eventuallyLoops(grid, forcedChangeInDirection, prev);
 };
 
 const alreadyContainsState = (needle: State, states: State[]): boolean => {
@@ -43,18 +54,23 @@ const alreadyContainsState = (needle: State, states: State[]): boolean => {
   );
 };
 
+const previousStates = (needle: State, states: State[]): State[] =>
+  states.slice(
+    0,
+    states.findIndex((state) => samePositionAndDirection(needle, state)) + 1,
+  );
+
 const eventuallyLoops = (
   grid: Grid,
   state: State,
-  states: State[],
+  previousStates: State[],
 ): boolean => {
   let start = state;
-  start.done = false;
   while (!start.done) {
-    console.log(start);
-    if (alreadyContainsState(start, states)) return true;
-    start = move(grid, state);
+    start = move(grid, start);
+    if (alreadyContainsState(start, previousStates)) return true;
   }
+
   return false;
 };
 

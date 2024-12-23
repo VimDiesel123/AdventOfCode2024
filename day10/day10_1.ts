@@ -1,4 +1,4 @@
-import { asGrid, toCoords, Coord, inBounds } from '../common';
+import { asGrid, toCoords, Coord, cardinalSquares } from '../common';
 
 const solve = (input: string): number => {
   const grid = asGrid(input);
@@ -26,16 +26,6 @@ const summitsReachable = (coord: Coord, grid: number[][]): Coord[] => {
     (acc, cur) => [...acc, ...summitsReachable(cur, grid)],
     [],
   );
-};
-
-const cardinalSquares = <T>([row, col]: Coord, grid: T[][]): Coord[] => {
-  const possiblities: Coord[] = [
-    [row + 1, col],
-    [row - 1, col],
-    [row, col + 1],
-    [row, col - 1],
-  ];
-  return possiblities.filter((coord) => inBounds(coord, grid));
 };
 
 const uniqueCoords = (coords: Coord[]): Coord[] => {

@@ -96,6 +96,16 @@ const chunk = <T>(arr: T[], chunkSize: number): T[][] => {
   }, []);
 };
 
+const cardinalSquares = <T>([row, col]: Coord, grid: T[][]): Coord[] => {
+  const possiblities: Coord[] = [
+    [row + 1, col],
+    [row - 1, col],
+    [row, col + 1],
+    [row, col - 1],
+  ];
+  return possiblities.filter((coord) => inBounds(coord, grid));
+};
+
 export {
   inputAsLines,
   readInput,
@@ -114,4 +124,5 @@ export {
   toCoords,
   swap,
   chunk,
+  cardinalSquares,
 };
